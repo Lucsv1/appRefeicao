@@ -14,228 +14,61 @@ import { useState } from "react";
 import { Modal } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import CadastroAlimento from "./Screens/Restaurante/CadastroAlimento";
+import RegistroRestaurante from "./Screens/Restaurante/RegistroRestaurante";
+import LoginRestaurante from "./Screens/Restaurante/LoginRestaurante";
+import Registro from "./Screens/Caridade/Registro";
+import Login from "./Screens/Caridade/Login";
+import Listagem from "./Screens/Caridade/Listagem";
+const Tab = createBottomTabNavigator();
 
-const { Screen, Navigator } = createBottomTabNavigator();
+//   return (
+//     <View>
+//       <Navigator>
+//         <Screen name="Cariadade">{() => <Registro />}</Screen>
+//         <Screen name="Restaurante">{() => <RegistroRestaurante />}</Screen>
+//       </Navigator>
+//     </View>
+//   );
+// };
 
-const Principal = () => {
-  return (
-    <View>
-      <Navigator>
-        <Screen name="categoria">{() => <Categoria />}</Screen>
-        <Screen name="Registro"></Screen>
-        <Screen name="Login"></Screen>
-      </Navigator>
-    </View>
-  );
-};
-
-const styleCategoria = StyleSheet.create({
-  container: { justifyContent: "center", flex: 1 },
-  textContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  body: {
-    flex: 4,
-    alignItems: "center",
-    borderWidth: 1,
-    padding: 10,
-  },
-  restaurante: {
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "white",
-  },
-  caridade: {
-    borderWidth: 1,
-    padding: 10,
-    marginTop: 20,
-    borderRadius: 10,
-    backgroundColor: "white",
-  },
-});
-
-const Registro = (props) => {
-  return (
-    <View style={styleRegistro.containerRegistro}>
-      <View style={styleRegistro.textoRegistro}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Registro</Text>
-        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
-          {" "}
-          Caridade
-        </Text>
-      </View>
-      <View style={styleRegistro.bodyRegistro}>
-        <Text>EMAIL</Text>
-        <TextInput style={stylesLogin.inputs} />
-        <Text style={{ marginTop: 10 }}>EMAIL</Text>
-        <TextInput style={stylesLogin.inputs} />
-        <Text style={{ marginTop: 10 }}>EMAIL</Text>
-        <TextInput style={stylesLogin.inputs} />
-        <Text style={{ marginTop: 10 }}>Senha</Text>
-        <TextInput style={stylesLogin.inputs} />
-        <TouchableOpacity>
-          <View style={styleRegistro.botao}>
-            <Text style={styleRegistro.textBotao}>Salvar</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <TouchableOpacity
-          onPress={() => {
-            props.setGoRegister(false);
-          }}
-        >
-          <View style={styleRegistro.botao}>
-            <Text style={styleRegistro.textBotao}>Voltar</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
-
-const styleRegistro = StyleSheet.create({
-  containerRegistro: { flex: 1 },
-  textoRegistro: {
-    alignItems: "center",
-    flex: 1,
-  },
-  bodyRegistro: {
-    alignItems: "center",
-    flex: 5,
-  },
-  botao: {
-    marginTop: 10,
-    backgroundColor: "#78bd92",
-    padding: 10,
-    borderRadius: 10,
-    width: "30%",
-  },
-  textBotao: {
-    textAlign: "center",
-  },
-});
-
-const Login = (props) => {
-  return (
-    <View style={stylesLogin.loginContainer}>
-      <View style={stylesLogin.textoLogin}>
-        <Text>Login</Text>
-      </View>
-      <View style={stylesLogin.forms}>
-        <Text>EMAIL</Text>
-        <TextInput style={stylesLogin.inputs} />
-        <Text>Senha</Text>
-        <TextInput style={stylesLogin.inputs} />
-        <View style={styleRegistro.botao}>
-          <Text
-            onPress={() => {
-              props.setGoListagem(true);
-            }}
-            style={styleRegistro.textBotao}
-          >
-            Logar
-          </Text>
-        </View>
-      </View>
-      <View style={stylesLogin.notRegister}>
-        <Text>Voce não é registrado?</Text>
-        <TouchableOpacity
-          onPress={() => {
-            props.setGoRegister(true);
-          }}
-        >
-          <Text style={{ color: "red", fontSize: 20 }}>clique aqui</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styleRegistro.botao}
-        onPress={() => {
-          props.setConfirmacaoCaridade(true);
-        }}
-      >
-        <View>
-          <Text style={styleRegistro.textBotao}>Voltar</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
-};
-const stylesLogin = StyleSheet.create({
-  loginContainer: {
-    flex: 1,
-    borderWidth: 1,
-    justifyContent: "center",
-  },
-  textoLogin: {
-    borderWidth: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  forms: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  inputs: {
-    backgroundColor: "white",
-    width: "50%",
-    borderRadius: 10,
-    marginTop: 10,
-  },
-  notRegister: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
-
-const Listagem = () => {
-  return (
-    <View>
-      <Text>comida</Text>
-      <Text>comida</Text>
-    </View>
-  );
-};
-
-const Categoria = (props) => {
-  return (
-    <View style={styleCategoria.container}>
-      <View style={styleCategoria.textContainer}>
-        <Text style={{ fontSize: 20 }}>Você é</Text>
-      </View>
-      <View style={styleCategoria.body}>
-        <TouchableOpacity>
-          <View style={styleCategoria.restaurante}>
-            <Text>Restaurante</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            props.setConfirmacaoCaridade(false);
-          }}
-        >
-          <View style={styleCategoria.caridade}>
-            <Text>Caridade</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
+//   return (
+//     <View style={styleCategoria.container}>
+//       <View style={styleCategoria.textContainer}>
+//         <Text style={{ fontSize: 20 }}>Você é</Text>
+//       </View>
+//       <View style={styleCategoria.body}>
+//         <TouchableOpacity
+//           onPress={() => {
+//             props.setConfirmacaoRestaurante(false);
+//           }}
+//         >
+//           <View style={styleCategoria.restaurante}>
+//             <Text>Restaurante</Text>
+//           </View>
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           onPress={() => {
+//             props.setConfirmacaoCaridade(false);
+//           }}
+//         >
+//           <View style={styleCategoria.caridade}>
+//             <Text>Caridade</Text>
+//           </View>
+//         </TouchableOpacity>
+//       </View>
+//     </View>
+//   );
+// };
 
 export default function App() {
   const [listaAlimentos, setListaAlimentos] = useState([]);
+  const [confirmacaoRestaurante, setConfirmacaoRestaurante] = useState(false);
   const [confirmacaoCaridade, setConfirmacaoCaridade] = useState(false);
+  const [goRegisterRestaurante, setGoRegisterRestaurante] = useState(false);
   const [goRegister, setGoRegister] = useState(false);
   const [goListagem, setGoListagem] = useState(false);
+  const [goRegistroAlimento, setGoRegistroAlimento] = useState(false);
 
   const api = axios.create({
     baseURL: "https://projeto-6af72-default-rtdb.firebaseio.com",
@@ -249,19 +82,48 @@ export default function App() {
           <Text style={styles.itulo}>FoodHelp</Text>
         </View>
         <View style={{ flex: 2 }}>
-          {confirmacaoCaridade ? (
-            <Categoria setConfirmacaoCaridade={setConfirmacaoCaridade} />
-          ) : goRegister ? (
-            <Registro setGoRegister={setGoRegister} />
-          ) : goListagem ? (
-            <Listagem />
-          ) : (
-            <Login
-              setGoListagem={setGoListagem}
-              setConfirmacaoCaridade={setConfirmacaoCaridade}
-              setGoRegister={setGoRegister}
-            />
-          )}
+          <Tab.Navigator screenOptions={{headerStyle: {height:0}}}>
+            <Tab.Screen name="Caridade">
+              {() =>
+                confirmacaoCaridade ? (
+                  <Login
+                    setGoListagem={setGoListagem}
+                    setGoRegister={setGoRegister}
+                  />
+                ) : goRegister ? (
+                  <Registro setGoRegister={setGoRegister} />
+                ) : goListagem ? (
+                  <Listagem setGoListagem={setGoListagem} />
+                ) : (
+                  <Login
+                    setGoListagem={setGoListagem}
+                    setGoRegister={setGoRegister}
+                  />
+                )
+              }
+            </Tab.Screen>
+            <Tab.Screen name="Restaurante">
+              {() =>
+                confirmacaoRestaurante ? (
+                  <LoginRestaurante
+                    setGoRegisterRestaurante={setGoRegisterRestaurante}
+                    setGoRegistroAlimento={setGoRegistroAlimento}
+                  />
+                ) : goRegisterRestaurante ? (
+                  <RegistroRestaurante
+                    setGoRegisterRestaurante={setGoRegisterRestaurante}
+                  />
+                ) : goRegistroAlimento ? (
+                  <CadastroAlimento setGoRegistroAlimento={setGoRegistroAlimento} />
+                ) : (
+                  <LoginRestaurante
+                    setGoRegisterRestaurante={setGoRegisterRestaurante}
+                    setGoRegistroAlimento={setGoRegistroAlimento}
+                  />
+                )
+              }
+            </Tab.Screen>
+          </Tab.Navigator>
         </View>
       </View>
     </NavigationContainer>

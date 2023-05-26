@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-
+import CameraScreen from "../../settings/CameraScreen";
 const CadastroAlimento = (props) => {
     return (
       <View style={stylesCadastroAlimento.main}>
@@ -32,6 +32,9 @@ const CadastroAlimento = (props) => {
               props.setGoRegistroAlimento(false)
             }} style={styleRegistro.textBotao}>Voltar</Text>
           </View>
+        </View>
+        <View style={{flex: 1}}>
+          <CameraScreen/>
         </View>
       </View>
     );

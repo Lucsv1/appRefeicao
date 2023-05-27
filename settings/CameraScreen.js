@@ -1,71 +1,91 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import React, { useEffect, useRef, useState  } from "react";
+import { View, TouchableOpacity, Text, StyleSheet, Image, SafeAreaView, Button, StatusBar } from "react-native";
 import { Camera } from "expo-camera";
+import { shareAsync } from "expo-sharing";
+import * as MediaLibrary from 'expo-media-library';
+
 const CameraScreen = (props) => {
-  const [hasPermission, setHasPermission] = useState(false)
-  const [type, setType] = useState(Camera.Constants.back);
 
-  useEffect(() =>{
-    (async () =>{
-      const { status } = await Camera.requestCameraPermissionsAsync()
-      setHasPermission(status === 'granted')
-    })()
-  }, [])
+  let cameraRef = useRef();
+  const [hasCameraPermission, setHasCameraPermission] = useState();
+  const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
+  const [photo, setPhoto] = useState();
 
-  if(hasPermission === false){
-    return(
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>Sem Acesso a camera</Text>
-      </View>
-    )
+  useEffect(() => {
+    (async () => {
+      const cameraPermission = await Camera.requestCameraPermissionsAsync();
+      const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
+      setHasCameraPermission(cameraPermission.status === "granted");
+      setHasMediaLibraryPermission(mediaLibraryPermission.status === "granted");
+    })();
+  }, []);
+
+  if (hasCameraPermission === undefined) {
+    return <Text>Requesting permissions...</Text>
+  } else if (!hasCameraPermission) {
+    return <Text>Permission for camera not granted. Please change this in settings.</Text>
+  }
+
+  let takePic = async () => {
+    let options = {
+      quality: 1,
+      base64: true,
+      exif: false
+    };
+
+    let newPhoto = await cameraRef.current.takePictureAsync(options);
+    setPhoto(newPhoto);
+  };
+
+  if (photo) {
+    let sharePic = () => {
+      shareAsync(photo.uri).then(() => {
+        setPhoto(undefined);
+      });
+    };
+
+    let savePhoto = () => {
+      MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
+        setPhoto(undefined);
+      });
+    };
+
+    return (
+      <SafeAreaView style={styles.container}>
+        <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
+        <Button title="Share" onPress={sharePic} />
+        {hasMediaLibraryPermission ? <Button title="Save" onPress={()=>{
+          savePhoto
+          props.setGoRegistroAlimento(true)
+        }} /> : undefined}
+        <Button title="Discard" onPress={() => setPhoto(undefined)} />
+      </SafeAreaView>
+    );
   }
 
   return (
-    <View style={styles.container}>
-      <Camera style={styles.camera} type={type}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              setType(
-                type === Camera.Constants.back
-                  ? Camera.Constants.front
-                  : Camera.Constants.back
-              );
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.text}>Flip</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>{
-            props.setGoRegistroAlimento(true)
-          }}>
-            <Text style={styles.text}>Tirar Foto </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
-    </View>
+    <Camera style={styles.container} ref={cameraRef}>
+      <View style={styles.buttonContainer}>
+        <Button title="Take Pic" onPress={takePic} />
+      </View>
+      <StatusBar style="auto" />
+    </Camera>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  camera: {
-    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonContainer: {
-    flex: 1,
-    backgroundColor: "transparent",
-    flexDirection: "row",
-    margin: 20,
+    backgroundColor: '#fff',
+    alignSelf: 'flex-end'
   },
-  button: {
-    flex: 0.1,
-    alignSelf: "flex-end",
-    alignItems: "center",
-  },
-  text: { fontSize: 18, color: "white" },
+  preview: {
+    alignSelf: 'stretch',
+    flex: 1
+  }
 });
-
 export default CameraScreen;

@@ -71,7 +71,7 @@ export default function App() {
   const [goRegister, setGoRegister] = useState(false);
   const [goListagem, setGoListagem] = useState(false);
   const [goRegistroAlimento, setGoRegistroAlimento] = useState(false);
-  const [goCamera, setGoCamera] = useState(false)
+  const [goCamera, setGoCamera] = useState(false);
 
   const api = axios.create({
     baseURL: "https://projeto-6af72-default-rtdb.firebaseio.com",
@@ -85,10 +85,15 @@ export default function App() {
           <Text style={styles.itulo}>FoodHelp</Text>
         </View>
         <View style={{ flex: 2 }}>
-          <Tab.Navigator screenOptions={{headerStyle: {height:0}}}>
-            <Tab.Screen name="Caridade" options={{tabBarIcon: () =>(
-              <Ionicons name="heart" color={'red'} size={20}/>
-            )}}>
+          <Tab.Navigator screenOptions={{ headerStyle: { height: 0 } }}>
+            <Tab.Screen
+              name="Caridade"
+              options={{
+                tabBarIcon: () => (
+                  <Ionicons name="heart" color={"red"} size={20} />
+                ),
+              }}
+            >
               {() =>
                 confirmacaoCaridade ? (
                   <Login
@@ -107,10 +112,13 @@ export default function App() {
                 )
               }
             </Tab.Screen>
-            <Tab.Screen name="Restaurante" options={{tabBarIcon: () =>(
-              <Ionicons name="restaurant"  size={20}/>
-            )}}>
-              {() =>
+            <Tab.Screen
+              name="Restaurante"
+              options={{
+                tabBarIcon: () => <Ionicons name="restaurant" size={20} />,
+              }}
+            >
+               {() =>
                 confirmacaoRestaurante ? (
                   <LoginRestaurante
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
@@ -118,15 +126,14 @@ export default function App() {
                   />
                 ) : goRegisterRestaurante ? (
                   <RegistroRestaurante
-                    setGoRegisterRestaurante={setGoRegisterRestaurant}
+                    setGoRegisterRestaurante={setGoRegisterRestaurante}
                   />
-                ) : goCamera ? (
-                 <CameraScreen setGoRegistroAlimento={setGoRegistroAlimento}/>
-                ) : goRegistroAlimento ? (<CadastroAlimento setGoRegistroAlimento={setGoRegistroAlimento}/>) : (
+                ) : goRegistroAlimento ? (
+                  <CadastroAlimento setGoRegistroAlimento={setGoRegistroAlimento} />
+                ) : (
                   <LoginRestaurante
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
                     setGoRegistroAlimento={setGoRegistroAlimento}
-                    setGoCamera={setGoCamera}
                   />
                 )
               }

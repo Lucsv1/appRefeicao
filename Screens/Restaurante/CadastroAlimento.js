@@ -34,7 +34,6 @@ const CadastroAlimento = (props) => {
           </View>
         </View>
         <View style={{flex: 1}}>
-          <CameraScreen/>
         </View>
       </View>
     );

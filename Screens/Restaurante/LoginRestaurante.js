@@ -23,7 +23,7 @@ const LoginRestaurante = (props) => {
           <View style={styleRegistro.botao}>
             <Text
               onPress={() => {
-                props.setGoCamera(true);
+                props.setGoRegistroAlimento(true);
               }}
               style={styleRegistro.textBotao}
             >

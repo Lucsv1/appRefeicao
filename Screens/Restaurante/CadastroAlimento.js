@@ -9,7 +9,13 @@ import {
   FlatList,
 } from "react-native";
 import CameraScreen from "../../settings/CameraScreen";
+import { useEffect, useState } from "react";
 const CadastroAlimento = (props) => {
+  const [alimento, setAlimento] = useState('')
+  const [dtDoacao, setDtDoacao] = useState('')
+  const [nmRestaurante, setNmRestaurante] = useState('')
+  const [status, setStatus] = useState('')
+  
     return (
       <View style={stylesCadastroAlimento.main}>
         <View style={stylesCadastroAlimento.textMain}>
@@ -17,21 +23,24 @@ const CadastroAlimento = (props) => {
         </View>
         <View style={stylesCadastroAlimento.body}>
           <Text>Alimento:</Text>
-          <TextInput style={stylesLogin.inputs}/>
-          <Text>Alimento:</Text>
-          <TextInput style={stylesLogin.inputs}/>
-          <Text>Alimento:</Text>
-          <TextInput style={stylesLogin.inputs}/>
-          <Text>Alimento:</Text>
-          <TextInput style={stylesLogin.inputs}/>
-          <View style={styleRegistro.botao}>
+          <TextInput value={alimento} onChangeText={setAlimento} style={stylesLogin.inputs}/>
+          <Text>Data da doação: </Text>
+          <TextInput value={dtDoacao} onChangeText={setDtDoacao} style={stylesLogin.inputs}/>
+          <Text>Nome do Restaurante:</Text>
+          <TextInput value={nmRestaurante} onChangeText={setNmRestaurante} style={stylesLogin.inputs}/>
+          <Text>Status do Alimento:</Text>
+          <TextInput value={status} onChangeText={setStatus} style={stylesLogin.inputs}/>
+          <TouchableOpacity onPress={()=>{
+            const obj = {alimento, dtDoacao, nmRestaurante, status}
+            props.setListaAlimentos([...props.listaAlimento, obj])
+          }} style={styleRegistro.botao}>
             <Text style={styleRegistro.textBotao}>Registrar</Text>
-          </View>
-          <View style={styleRegistro.botao}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styleRegistro.botao}>
             <Text onPress={()=>{
               props.setGoRegistroAlimento(false)
             }} style={styleRegistro.textBotao}>Voltar</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={{flex: 1}}>
         </View>

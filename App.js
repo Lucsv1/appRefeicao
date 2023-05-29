@@ -22,6 +22,8 @@ import Login from "./Screens/Caridade/Login";
 import Listagem from "./Screens/Caridade/Listagem";
 import { Ionicons } from "@expo/vector-icons";
 import CameraScreen from "./settings/CameraScreen";
+import EnderecoRestaurante from "./Screens/Restaurante/EnderecoRestaurante/EnderecoRestaurante";
+import EnderecoCaridade from "./Screens/Caridade/EnderecoCaridade/EnderecoCaridade";
 const Tab = createBottomTabNavigator();
 
 //   return (
@@ -71,7 +73,8 @@ export default function App() {
   const [goRegister, setGoRegister] = useState(false);
   const [goListagem, setGoListagem] = useState(false);
   const [goRegistroAlimento, setGoRegistroAlimento] = useState(false);
-  const [goCamera, setGoCamera] = useState(false);
+  const [goEnderecoRestaurante, setGoEnderecoRestaurante] = useState(false);
+  const [goEnderecoCaridade, setGoEnderecoCaridade] = useState(false);
 
   const api = axios.create({
     baseURL: "https://projeto-6af72-default-rtdb.firebaseio.com",
@@ -101,7 +104,15 @@ export default function App() {
                     setGoRegister={setGoRegister}
                   />
                 ) : goRegister ? (
-                  <Registro setGoRegister={setGoRegister} />
+                  <Registro
+                    setGoRegister={setGoRegister}
+                    setGoEnderecoCaridade={setGoEnderecoCaridade}
+                  />
+                ) : goEnderecoCaridade ? (
+                  <EnderecoCaridade
+                    setGoEnderecoCaridade={setGoEnderecoCaridade}
+                    setGoRegister={setGoRegister}
+                  />
                 ) : goListagem ? (
                   <Listagem setGoListagem={setGoListagem} />
                 ) : (
@@ -118,7 +129,7 @@ export default function App() {
                 tabBarIcon: () => <Ionicons name="restaurant" size={20} />,
               }}
             >
-               {() =>
+              {() =>
                 confirmacaoRestaurante ? (
                   <LoginRestaurante
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
@@ -127,9 +138,16 @@ export default function App() {
                 ) : goRegisterRestaurante ? (
                   <RegistroRestaurante
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
+                    setGoEnderecoRestaurante={setGoEnderecoRestaurante}
+                  />
+                ) : goEnderecoRestaurante ? (
+                  <EnderecoRestaurante
+                    setGoEnderecoRestaurante={setGoEnderecoRestaurante}
                   />
                 ) : goRegistroAlimento ? (
-                  <CadastroAlimento setGoRegistroAlimento={setGoRegistroAlimento} />
+                  <CadastroAlimento
+                    setGoRegistroAlimento={setGoRegistroAlimento}
+                  />
                 ) : (
                   <LoginRestaurante
                     setGoRegisterRestaurante={setGoRegisterRestaurante}

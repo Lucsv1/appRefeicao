@@ -23,17 +23,18 @@ const RegistroRestaurante = (props) => {
           </Text>
         </View>
         <View style={styleRegistro.bodyRegistro}>
-          <Text>EMAIL</Text>
+          <Text>Nome do Restaurante</Text>
           <TextInput style={stylesLogin.inputs} />
-          <Text style={{ marginTop: 10 }}>EMAIL</Text>
-          <TextInput style={stylesLogin.inputs} />
-          <Text style={{ marginTop: 10 }}>EMAIL</Text>
+          <Text style={{ marginTop: 10 }}>Email</Text>
           <TextInput style={stylesLogin.inputs} />
           <Text style={{ marginTop: 10 }}>Senha</Text>
           <TextInput style={stylesLogin.inputs} />
+          <Text style={{ marginTop: 10 }}>CNPJ</Text>
+          <TextInput style={stylesLogin.inputs} />
           <TouchableOpacity
             onPress={() => {
-              props.setGoRegistroAlimento(true);
+              props.setGoEnderecoRestaurante(true);
+              props.setGoRegisterRestaurante(false)
             }}
           >
             <View style={styleRegistro.botao}>

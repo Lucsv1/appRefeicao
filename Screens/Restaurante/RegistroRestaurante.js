@@ -1,5 +1,6 @@
 
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,6 +14,11 @@ import {
 
 
 const RegistroRestaurante = (props) => {
+  const [nmRestaurante, setNmRestaurante] = useState('')
+  const [emailRestaurante, setEmailRestaurante] = useState('')
+  const [senhaRestaurante, setSenhaRestaurante] = useState('')
+  const [cnpjRestaurante , setCnpjRestaurante] = useState('')
+
     return (
       <View style={styleRegistro.containerRegistro}>
         <View style={styleRegistro.textoRegistro}>
@@ -24,17 +30,20 @@ const RegistroRestaurante = (props) => {
         </View>
         <View style={styleRegistro.bodyRegistro}>
           <Text>Nome do Restaurante</Text>
-          <TextInput style={stylesLogin.inputs} />
+          <TextInput value={nmRestaurante} onChangeText={setNmRestaurante} style={stylesLogin.inputs} />
           <Text style={{ marginTop: 10 }}>Email</Text>
-          <TextInput style={stylesLogin.inputs} />
+          <TextInput value={emailRestaurante} onChangeText={setEmailRestaurante} style={stylesLogin.inputs} />
           <Text style={{ marginTop: 10 }}>Senha</Text>
-          <TextInput style={stylesLogin.inputs} />
+          <TextInput value={senhaRestaurante} onChangeText={setSenhaRestaurante} style={stylesLogin.inputs} />
           <Text style={{ marginTop: 10 }}>CNPJ</Text>
-          <TextInput style={stylesLogin.inputs} />
+          <TextInput value={cnpjRestaurante} onChangeText={setCnpjRestaurante} style={stylesLogin.inputs} />
           <TouchableOpacity
             onPress={() => {
+              const obj = {nmRestaurante,emailRestaurante,senhaRestaurante,cnpjRestaurante}
+              props.setListaRegistroRestaurante([...props.listaRegistroRestaurante, obj])
               props.setGoEnderecoRestaurante(true);
-              props.setGoRegisterRestaurante(false)
+              props.setGoRegisterRestaurante(false);
+
             }}
           >
             <View style={styleRegistro.botao}>

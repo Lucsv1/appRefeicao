@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +11,8 @@ import {
 } from "react-native";
 
 const LoginRestaurante = (props) => {
+  const [emailLoginRestaurante, setLoginEmailRestaurante] = useState('')
+  const [senhaLoginRestaurante, setLoginSenhaRestaurante] = useState('')
   return (
     <View style={stylesLogin.loginContainer}>
       <View style={stylesLogin.textoLogin}>
@@ -17,12 +20,14 @@ const LoginRestaurante = (props) => {
       </View>
       <View style={stylesLogin.forms}>
         <Text>EMAIL</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput value={emailLoginRestaurante} onChangeText={setLoginEmailRestaurante} style={stylesLogin.inputs} />
         <Text>Senha</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput value={senhaLoginRestaurante} onChangeText={setLoginSenhaRestaurante} style={stylesLogin.inputs} />
         <View style={styleRegistro.botao}>
           <Text
             onPress={() => {
+              // const obj = {emailLoginRestaurante, senhaLoginRestaurante}
+              // props.setListaLoginRestaurante([...props.listaLoginRestaurante, obj])
               props.setGoRegistroAlimento(true);
             }}
             style={styleRegistro.textBotao}

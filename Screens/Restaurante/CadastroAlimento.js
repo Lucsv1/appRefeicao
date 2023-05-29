@@ -32,7 +32,7 @@ const CadastroAlimento = (props) => {
           <TextInput value={status} onChangeText={setStatus} style={stylesLogin.inputs}/>
           <TouchableOpacity onPress={()=>{
             const obj = {alimento, dtDoacao, nmRestaurante, status}
-            props.setListaAlimentos([...props.listaAlimento, obj])
+            props.setListaAlimentos([...props.listaAlimentos, obj])
           }} style={styleRegistro.botao}>
             <Text style={styleRegistro.textBotao}>Registrar</Text>
           </TouchableOpacity>

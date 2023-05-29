@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +11,11 @@ import {
 } from "react-native";
 
 const EnderecoRestaurante = (props) => {
+    const [cepRestaurante, setCepRestaurante] = useState('')
+    const [logradouroRestaurante, setLogradouroRestaurante] = useState('')
+    const [numeroRestaurante, setNumeroRestaurente] = useState('')
+    const [ufRestaurante, setUfRestaurante] = useState('')
+    const [complementoRestaurante, setComplementoRestaurante] = useState('')
   return (
     <View style={styleRegistro.containerRegistro}>
       <View style={styleRegistro.textoRegistro}>
@@ -21,17 +27,19 @@ const EnderecoRestaurante = (props) => {
       </View>
       <View style={styleRegistro.bodyRegistro}>
       <Text style={{ marginTop: 10 }}>CEP</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput value={cepRestaurante} onChangeText={setCepRestaurante} style={stylesLogin.inputs} />
         <Text style={{ marginTop: 10 }}>logradouro</Text>
-        <TextInput style={stylesLogin.inputs} />
-        <Text style={{ marginTop: 10 }}>Nuemero</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput value={logradouroRestaurante} onChangeText={setLogradouroRestaurante} style={stylesLogin.inputs} />
+        <Text style={{ marginTop: 10 }}>Numero</Text>
+        <TextInput value={numeroRestaurante} onChangeText={setNumeroRestaurente} style={stylesLogin.inputs} />
         <Text style={{ marginTop: 10 }}>Uf</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput value={ufRestaurante} onChangeText={setUfRestaurante} style={stylesLogin.inputs} />
         <Text style={{ marginTop: 10 }}>Complemento</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput value={complementoRestaurante} onChangeText={setComplementoRestaurante} style={stylesLogin.inputs} />
         <TouchableOpacity
           onPress={() => {
+            const obj = {cepRestaurante, logradouroRestaurante, numeroRestaurante, ufRestaurante, complementoRestaurante}
+            props.setListaRegsitroRestaurante([...props.setListaRegsitroRestaurante,obj])
             props.setGoEnderecoRestaurante(true);
           }}
           style={styleRegistro.botao}

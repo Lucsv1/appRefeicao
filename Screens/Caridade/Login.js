@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,40 +11,54 @@ import {
 } from "react-native";
 
 const Login = (props) => {
-    return (
-      <View style={stylesLogin.loginContainer}>
-        <View style={stylesLogin.textoLogin}>
-          <Text>Login</Text>
-        </View>
-        <View style={stylesLogin.forms}>
-          <Text>EMAIL</Text>
-          <TextInput style={stylesLogin.inputs} />
-          <Text>Senha</Text>
-          <TextInput style={stylesLogin.inputs} />
-          <View style={styleRegistro.botao}>
-            <Text
-              onPress={() => {
-                props.setGoListagem(true);
-              }}
-              style={styleRegistro.textBotao}
-            >
-              Logar
-            </Text>
-          </View>
-        </View>
-        <View style={stylesLogin.notRegister}>
-          <Text>Voce não é registrado?</Text>
-          <TouchableOpacity
+  const [emailLoginCaridade, setEmailLoginCaridade] = useState('');
+  const [senhaLoginCaridade, setSenhaLoginCaridade] = useState('');
+
+  return (
+    <View style={stylesLogin.loginContainer}>
+      <View style={stylesLogin.textoLogin}>
+        <Text>Login</Text>
+      </View>
+      <View style={stylesLogin.forms}>
+        <Text>Email</Text>
+        <TextInput
+          style={stylesLogin.inputs}
+          value={emailLoginCaridade}
+          onChangeText={setEmailLoginCaridade}
+        />
+        <Text>Senha</Text>
+        <TextInput
+          style={stylesLogin.inputs}
+          value={senhaLoginCaridade}
+          onChangeText={setSenhaLoginCaridade}
+        />
+        <View style={styleRegistro.botao}>
+          <Text
             onPress={() => {
-              props.setGoRegister(true);
+              // const obj ={emailLoginCaridade, senhaLoginCaridade}
+              // props.setListaLoginCaridade([...props.listaLoginCaridade, obj])
+              props.setGoListagem(true);
             }}
+            style={styleRegistro.textBotao}
           >
-            <Text style={{ color: "red", fontSize: 20 }}>clique aqui</Text>
-          </TouchableOpacity>
+            Logar
+          </Text>
         </View>
       </View>
-    );
-  };
+      <View style={stylesLogin.notRegister}>
+        <Text>Você não é registrado?</Text>
+        <TouchableOpacity
+          onPress={() => {
+            props.setGoRegister(true);
+          }}
+        >
+          <Text style={{ color: "red", fontSize: 20 }}>Clique aqui</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
 
   const stylesLogin = StyleSheet.create({
     loginContainer: {

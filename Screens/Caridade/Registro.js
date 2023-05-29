@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +11,11 @@ import {
 } from "react-native";
 
 const Registro = (props) => {
+  const [nomeCaridade, setNomeCaridade] = useState('');
+  const [emailCaridade, setEmailCaridade] = useState('');
+  const [senhaCaridade, setSenhaCaridade] = useState('');
+  const [cnpjCaridade, setCnpjCaridade] = useState('');
+
   return (
     <View style={styleRegistro.containerRegistro}>
       <View style={styleRegistro.textoRegistro}>
@@ -21,17 +27,38 @@ const Registro = (props) => {
       </View>
       <View style={styleRegistro.bodyRegistro}>
         <Text>Nome</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput
+          style={stylesLogin.inputs}
+          value={nomeCaridade}
+          onChangeText={setNomeCaridade}
+        />
         <Text style={{ marginTop: 10 }}>Email</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput
+          style={stylesLogin.inputs}
+          value={emailCaridade}
+          onChangeText={setEmailCaridade}
+        />
         <Text style={{ marginTop: 10 }}>Senha</Text>
-        <TextInput style={stylesLogin.inputs} />
+        <TextInput
+          style={stylesLogin.inputs}
+          value={senhaCaridade}
+          onChangeText={setSenhaCaridade}
+        />
         <Text style={{ marginTop: 10 }}>CNPJ</Text>
-        <TextInput style={stylesLogin.inputs} />
-        <TouchableOpacity onPress={()=>{
-           props.setGoEnderecoCaridade(true)
-           props.setGoRegister(false)
-        }} style={styleRegistro.botao}>
+        <TextInput
+          style={stylesLogin.inputs}
+          value={cnpjCaridade}
+          onChangeText={setCnpjCaridade}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            const obj = {nomeCaridade,emailCaridade,senhaCaridade,cnpjCaridade}
+            props.setListaRegistroCaridade([...props.listaRegistroCaridade, obj])
+            props.setGoEnderecoCaridade(true);
+            props.setGoRegister(false);
+          }}
+          style={styleRegistro.botao}
+        >
           <Text style={styleRegistro.textBotao}>Salvar</Text>
         </TouchableOpacity>
       </View>
@@ -49,6 +76,7 @@ const Registro = (props) => {
     </View>
   );
 };
+
 
 const styleRegistro = StyleSheet.create({
   containerRegistro: { flex: 1 },

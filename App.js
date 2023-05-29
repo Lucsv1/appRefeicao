@@ -67,6 +67,12 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [listaAlimentos, setListaAlimentos] = useState([]);
+  const [listaLoginRestaurante, setListaLoginRestaurante] = useState([])
+  const [listaRegistroRestaurante ,setListaRegistroRestaurante] = useState([])
+  const [listaRegistroCaridade ,setListaRegistroCaridade] = useState([])
+  const [listaLoginCaridade, setListaLoginCaridade] = useState([])
+
+
   const [confirmacaoRestaurante, setConfirmacaoRestaurante] = useState(false);
   const [confirmacaoCaridade, setConfirmacaoCaridade] = useState(false);
   const [goRegisterRestaurante, setGoRegisterRestaurante] = useState(false);
@@ -114,7 +120,7 @@ export default function App() {
                     setGoRegister={setGoRegister}
                   />
                 ) : goListagem ? (
-                  <Listagem setGoListagem={setGoListagem} />
+                  <Listagem setGoListagem={setGoListagem} listaAlimentos={listaAlimentos}  />
                 ) : (
                   <Login
                     setGoListagem={setGoListagem}
@@ -147,6 +153,8 @@ export default function App() {
                 ) : goRegistroAlimento ? (
                   <CadastroAlimento
                     setGoRegistroAlimento={setGoRegistroAlimento}
+                    setListaAlimentos={setListaAlimentos}
+                    listaAlimentos={listaAlimentos}
                   />
                 ) : (
                   <LoginRestaurante

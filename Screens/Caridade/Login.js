@@ -14,10 +14,39 @@ const Login = (props) => {
   const [emailLoginCaridade, setEmailLoginCaridade] = useState('');
   const [senhaLoginCaridade, setSenhaLoginCaridade] = useState('');
 
+
+  const handleLogin = () => {
+    const credentials = {
+      email: emailLoginCaridade,
+      senha: senhaLoginCaridade,
+    };
+
+    fetch('http://192.168.193.236:8080/usuarios/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle success response if needed
+        console.log(data);
+        // Set the state to navigate to the listagem screen
+        props.setGoListagem(true);
+      })
+      .catch(error => {
+        // Handle error if needed
+        console.error(error);
+      });
+      props.setGoListagem(true);
+  };
+
   return (
     <View style={stylesLogin.loginContainer}>
       <View style={stylesLogin.textoLogin}>
-        <Text>Login</Text>
+        <Text style={{fontSize: 20,
+      fontWeight: 'bold'}}>Login - Caridade</Text>
       </View>
       <View style={stylesLogin.forms}>
         <Text>Email</Text>
@@ -34,11 +63,7 @@ const Login = (props) => {
         />
         <View style={styleRegistro.botao}>
           <Text
-            onPress={() => {
-              // const obj ={emailLoginCaridade, senhaLoginCaridade}
-              // props.setListaLoginCaridade([...props.listaLoginCaridade, obj])
-              props.setGoListagem(true);
-            }}
+            onPress={handleLogin}
             style={styleRegistro.textBotao}
           >
             Logar
@@ -62,18 +87,16 @@ const Login = (props) => {
 
   const stylesLogin = StyleSheet.create({
     loginContainer: {
-      flex: 1,
-      borderWidth: 1,
+      flex: 3,
       justifyContent: "center",
     },
     textoLogin: {
-      borderWidth: 1,
       justifyContent: "center",
       alignItems: "center",
-      padding: 10,
+      padding: 10
     },
     forms: {
-      flex: 1,
+      flex: 3,
       justifyContent: "center",
       alignItems: "center",
       padding: 10,
@@ -86,7 +109,6 @@ const Login = (props) => {
     },
     notRegister: {
       flex: 1,
-      justifyContent: "center",
       alignItems: "center",
     },
   });

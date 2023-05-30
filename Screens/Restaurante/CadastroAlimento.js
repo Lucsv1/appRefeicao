@@ -9,102 +9,149 @@ import {
   FlatList,
 } from "react-native";
 import CameraScreen from "../../settings/CameraScreen";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const CadastroAlimento = (props) => {
-  const [alimento, setAlimento] = useState('')
-  const [dtDoacao, setDtDoacao] = useState('')
-  const [nmRestaurante, setNmRestaurante] = useState('')
-  const [status, setStatus] = useState('')
-  
-    return (
-      <View style={stylesCadastroAlimento.main}>
-        <View style={stylesCadastroAlimento.textMain}>
-          <Text style={{fontSize: 20}}>Registrar Alimento</Text>
-        </View>
-        <View style={stylesCadastroAlimento.body}>
-          <Text>Alimento:</Text>
-          <TextInput value={alimento} onChangeText={setAlimento} style={stylesLogin.inputs}/>
-          <Text>Data da doação: </Text>
-          <TextInput value={dtDoacao} onChangeText={setDtDoacao} style={stylesLogin.inputs}/>
-          <Text>Nome do Restaurante:</Text>
-          <TextInput value={nmRestaurante} onChangeText={setNmRestaurante} style={stylesLogin.inputs}/>
-          <Text>Status do Alimento:</Text>
-          <TextInput value={status} onChangeText={setStatus} style={stylesLogin.inputs}/>
-          <TouchableOpacity onPress={()=>{
-            const obj = {alimento, dtDoacao, nmRestaurante, status}
-            props.setListaAlimentos([...props.listaAlimentos, obj])
-          }} style={styleRegistro.botao}>
-            <Text style={styleRegistro.textBotao}>Registrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styleRegistro.botao}>
-            <Text onPress={()=>{
-              props.setGoRegistroAlimento(false)
-            }} style={styleRegistro.textBotao}>Voltar</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{flex: 1}}>
-        </View>
-      </View>
-    );
+  const [alimento, setAlimento] = useState("");
+  const [dtDoacao, setDtDoacao] = useState("");
+  const [nmRestaurante, setNmRestaurante] = useState("");
+  const [status, setStatus] = useState("");
+
+  const handleCadastroAlimento = () => {
+    const obj = {
+      tags: [alimento],
+      restauranteDoadorId: 0,
+    };
+
+    fetch("http://192.168.193.236:8080/alimentos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle success response if needed
+        console.log(data);
+        // Add the new food to the list
+      })
+      .catch((error) => {
+        // Handle error if needed
+        console.error(error);
+      });
+      props.setListaAlimentos([...props.listaAlimentos, obj]);
+
   };
 
-  const stylesCadastroAlimento = StyleSheet.create({
-    main: { flex: 1},
-    textMain: { flex: 1 ,justifyContent: 'center', alignItems: 'center', },
-    body: { flex: 7 ,justifyContent: 'center', alignItems: 'center'}
-  })
+  return (
+    <View style={stylesCadastroAlimento.main}>
+      <View style={stylesCadastroAlimento.textMain}>
+        <Text style={{ fontSize: 20 }}>Registrar Alimento</Text>
+      </View>
+      <View style={stylesCadastroAlimento.body}>
+        <Text>Alimento:</Text>
+        <TextInput
+          value={alimento}
+          onChangeText={setAlimento}
+          style={stylesLogin.inputs}
+        />
+        <Text>Data da doação: </Text>
+        <TextInput
+          value={dtDoacao}
+          onChangeText={setDtDoacao}
+          style={stylesLogin.inputs}
+        />
+        <Text>Nome do Restaurante:</Text>
+        <TextInput
+          value={nmRestaurante}
+          onChangeText={setNmRestaurante}
+          style={stylesLogin.inputs}
+        />
+        <Text>Status do Alimento:</Text>
+        <TextInput
+          value={status}
+          onChangeText={setStatus}
+          style={stylesLogin.inputs}
+        />
+        <TouchableOpacity
+          onPress={handleCadastroAlimento}
+          style={styleRegistro.botao}
+        >
+          <Text style={styleRegistro.textBotao}>Registrar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styleRegistro.botao}>
+          <Text
+            onPress={() => {
+              props.setGoRegistroAlimento(false);
+            }}
+            style={styleRegistro.textBotao}
+          >
+            Voltar
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ flex: 1 }}></View>
+    </View>
+  );
+};
 
-  const stylesLogin = StyleSheet.create({
-    loginContainer: {
-      flex: 1,
-      borderWidth: 1,
-      justifyContent: "center",
-    },
-    textoLogin: {
-      borderWidth: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      padding: 10,
-    },
-    forms: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      padding: 10,
-    },
-    inputs: {
-      backgroundColor: "white",
-      width: "50%",
-      borderRadius: 10,
-      marginTop: 10,
-    },
-    notRegister: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  });
+const stylesCadastroAlimento = StyleSheet.create({
+  main: { flex: 1 },
+  textMain: { flex: 1, justifyContent: "center", alignItems: "center" },
+  body: { flex: 7, justifyContent: "center", alignItems: "center" },
+});
 
-  const styleRegistro = StyleSheet.create({
-    containerRegistro: { flex: 1 },
-    textoRegistro: {
-      alignItems: "center",
-      flex: 1,
-    },
-    bodyRegistro: {
-      alignItems: "center",
-      flex: 5,
-    },
-    botao: {
-      marginTop: 10,
-      backgroundColor: "#78bd92",
-      padding: 10,
-      borderRadius: 10,
-      width: "30%",
-    },
-    textBotao: {
-      textAlign: "center",
-    },
-  });
+const stylesLogin = StyleSheet.create({
+  loginContainer: {
+    flex: 1,
+    borderWidth: 1,
+    justifyContent: "center",
+  },
+  textoLogin: {
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+  forms: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+  inputs: {
+    backgroundColor: "white",
+    width: "50%",
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  notRegister: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
-  export default CadastroAlimento;
+const styleRegistro = StyleSheet.create({
+  containerRegistro: { flex: 1 },
+  textoRegistro: {
+    alignItems: "center",
+    flex: 1,
+  },
+  bodyRegistro: {
+    alignItems: "center",
+    flex: 5,
+  },
+  botao: {
+    marginTop: 10,
+    backgroundColor: "#78bd92",
+    padding: 10,
+    borderRadius: 10,
+    width: "30%",
+  },
+  textBotao: {
+    textAlign: "center",
+  },
+});
+
+export default CadastroAlimento;

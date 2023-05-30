@@ -22,56 +22,15 @@ import Login from "./Screens/Caridade/Login";
 import Listagem from "./Screens/Caridade/Listagem";
 import { Ionicons } from "@expo/vector-icons";
 import CameraScreen from "./settings/CameraScreen";
-import EnderecoRestaurante from "./Screens/Restaurante/EnderecoRestaurante/EnderecoRestaurante";
-import EnderecoCaridade from "./Screens/Caridade/EnderecoCaridade/EnderecoCaridade";
 const Tab = createBottomTabNavigator();
 
-//   return (
-//     <View>
-//       <Navigator>
-//         <Screen name="Cariadade">{() => <Registro />}</Screen>
-//         <Screen name="Restaurante">{() => <RegistroRestaurante />}</Screen>
-//       </Navigator>
-//     </View>
-//   );
-// };
-
-//   return (
-//     <View style={styleCategoria.container}>
-//       <View style={styleCategoria.textContainer}>
-//         <Text style={{ fontSize: 20 }}>Você é</Text>
-//       </View>
-//       <View style={styleCategoria.body}>
-//         <TouchableOpacity
-//           onPress={() => {
-//             props.setConfirmacaoRestaurante(false);
-//           }}
-//         >
-//           <View style={styleCategoria.restaurante}>
-//             <Text>Restaurante</Text>
-//           </View>
-//         </TouchableOpacity>
-//         <TouchableOpacity
-//           onPress={() => {
-//             props.setConfirmacaoCaridade(false);
-//           }}
-//         >
-//           <View style={styleCategoria.caridade}>
-//             <Text>Caridade</Text>
-//           </View>
-//         </TouchableOpacity>
-//       </View>
-//     </View>
-//   );
-// };
 
 export default function App() {
   const [listaAlimentos, setListaAlimentos] = useState([]);
-  const [listaLoginRestaurante, setListaLoginRestaurante] = useState([])
-  const [listaRegistroRestaurante ,setListaRegistroRestaurante] = useState([])
-  const [listaRegistroCaridade ,setListaRegistroCaridade] = useState([])
-  const [listaLoginCaridade, setListaLoginCaridade] = useState([])
-
+  const [listaLoginRestaurante, setListaLoginRestaurante] = useState([]);
+  const [listaRegistroRestaurante, setListaRegistroRestaurante] = useState([]);
+  const [listaRegistroCaridade, setListaRegistroCaridade] = useState([]);
+  const [listaLoginCaridade, setListaLoginCaridade] = useState([]);
 
   const [confirmacaoRestaurante, setConfirmacaoRestaurante] = useState(false);
   const [confirmacaoCaridade, setConfirmacaoCaridade] = useState(false);
@@ -79,12 +38,8 @@ export default function App() {
   const [goRegister, setGoRegister] = useState(false);
   const [goListagem, setGoListagem] = useState(false);
   const [goRegistroAlimento, setGoRegistroAlimento] = useState(false);
-  const [goEnderecoRestaurante, setGoEnderecoRestaurante] = useState(false);
-  const [goEnderecoCaridade, setGoEnderecoCaridade] = useState(false);
 
-  const api = axios.create({
-    baseURL: "https://projeto-6af72-default-rtdb.firebaseio.com",
-  });
+  
 
   return (
     <NavigationContainer>
@@ -112,15 +67,14 @@ export default function App() {
                 ) : goRegister ? (
                   <Registro
                     setGoRegister={setGoRegister}
-                    setGoEnderecoCaridade={setGoEnderecoCaridade}
-                  />
-                ) : goEnderecoCaridade ? (
-                  <EnderecoCaridade
-                    setGoEnderecoCaridade={setGoEnderecoCaridade}
-                    setGoRegister={setGoRegister}
+                    setListaRegistroCaridade={setListaRegistroCaridade}
                   />
                 ) : goListagem ? (
-                  <Listagem setGoListagem={setGoListagem} listaAlimentos={listaAlimentos}  />
+                  <Listagem
+                    setGoListagem={setGoListagem}
+                    listaAlimentos={listaAlimentos}
+                    setListaAlimentos={setListaAlimentos}
+                  />
                 ) : (
                   <Login
                     setGoListagem={setGoListagem}
@@ -144,11 +98,6 @@ export default function App() {
                 ) : goRegisterRestaurante ? (
                   <RegistroRestaurante
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
-                    setGoEnderecoRestaurante={setGoEnderecoRestaurante}
-                  />
-                ) : goEnderecoRestaurante ? (
-                  <EnderecoRestaurante
-                    setGoEnderecoRestaurante={setGoEnderecoRestaurante}
                   />
                 ) : goRegistroAlimento ? (
                   <CadastroAlimento

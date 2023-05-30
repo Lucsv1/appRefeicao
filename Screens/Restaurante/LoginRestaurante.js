@@ -13,10 +13,36 @@ import {
 const LoginRestaurante = (props) => {
   const [emailLoginRestaurante, setLoginEmailRestaurante] = useState('')
   const [senhaLoginRestaurante, setLoginSenhaRestaurante] = useState('')
+
+  const handleLogin = () => {
+    const credentials = {
+      email: emailLoginRestaurante,
+      senha: senhaLoginRestaurante,
+    };
+
+    fetch('http://192.168.193.236:8080/restaurantes/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      props.setGoRegistroAlimento(true);
+
+  };
+
   return (
     <View style={stylesLogin.loginContainer}>
       <View style={stylesLogin.textoLogin}>
-        <Text>Login</Text>
+        <Text style={{fontSize: 20,
+      fontWeight: 'bold'}}>Login - Restaurante</Text>
       </View>
       <View style={stylesLogin.forms}>
         <Text>EMAIL</Text>
@@ -25,11 +51,7 @@ const LoginRestaurante = (props) => {
         <TextInput value={senhaLoginRestaurante} onChangeText={setLoginSenhaRestaurante} style={stylesLogin.inputs} />
         <View style={styleRegistro.botao}>
           <Text
-            onPress={() => {
-              // const obj = {emailLoginRestaurante, senhaLoginRestaurante}
-              // props.setListaLoginRestaurante([...props.listaLoginRestaurante, obj])
-              props.setGoRegistroAlimento(true);
-            }}
+            onPress={handleLogin}
             style={styleRegistro.textBotao}
           >Logar</Text>
         </View>
@@ -73,11 +95,9 @@ const styleRegistro = StyleSheet.create({
 const stylesLogin = StyleSheet.create({
   loginContainer: {
     flex: 1,
-    borderWidth: 1,
     justifyContent: "center",
   },
   textoLogin: {
-    borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,

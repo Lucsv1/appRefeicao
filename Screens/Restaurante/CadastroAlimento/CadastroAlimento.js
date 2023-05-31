@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { stylesCadastroAlimento, stylesLogin, styleRegistro } from "./style";
 import {
   StyleSheet,
   Text,
@@ -8,7 +9,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import CameraScreen from "../../settings/CameraScreen";
+import CameraScreen from "../../../settings/CameraScreen";
 import { useState } from "react";
 const CadastroAlimento = (props) => {
   const [alimento, setAlimento] = useState("");
@@ -18,30 +19,20 @@ const CadastroAlimento = (props) => {
   const [listaCadastroAlimento, setListaCadastroAlimentos] = useState([])
 
   const handleCadastroAlimento = () => {
-
-    const obj1={
-      alimento,
-      dtDoacao,
-      nmRestaurante,
-      status,
-    }
-
-
-    setListaCadastroAlimentos([...listaCadastroAlimento, obj1])
-
-    const obj = {
-      tags: ['arroz'],
+    const obj1 = {
+      alimento: [alimento],
       restauranteDoadorId: 0,
     };
-
-    fetch("http://192.168.15.5:8080/alimentos", {
+  
+    console.log(obj1)
+    fetch("http://192.168.193.236:8080/alimentos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(obj),
+      body: JSON.stringify(obj1),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => {
         // Handle success response if needed
         console.log(data);
@@ -51,8 +42,8 @@ const CadastroAlimento = (props) => {
         // Handle error if needed
         console.error(error);
       });
-
   };
+  
 
   return (
     <View style={stylesCadastroAlimento.main}>
@@ -106,63 +97,6 @@ const CadastroAlimento = (props) => {
   );
 };
 
-const stylesCadastroAlimento = StyleSheet.create({
-  main: { flex: 1 },
-  textMain: { flex: 1, justifyContent: "center", alignItems: "center" },
-  body: { flex: 7, justifyContent: "center", alignItems: "center" },
-});
 
-const stylesLogin = StyleSheet.create({
-  loginContainer: {
-    flex: 1,
-    borderWidth: 1,
-    justifyContent: "center",
-  },
-  textoLogin: {
-    borderWidth: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  forms: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  inputs: {
-    backgroundColor: "white",
-    width: "50%",
-    borderRadius: 10,
-    marginTop: 10,
-  },
-  notRegister: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
-
-const styleRegistro = StyleSheet.create({
-  containerRegistro: { flex: 1 },
-  textoRegistro: {
-    alignItems: "center",
-    flex: 1,
-  },
-  bodyRegistro: {
-    alignItems: "center",
-    flex: 5,
-  },
-  botao: {
-    marginTop: 10,
-    backgroundColor: "#78bd92",
-    padding: 10,
-    borderRadius: 10,
-    width: "30%",
-  },
-  textBotao: {
-    textAlign: "center",
-  },
-});
 
 export default CadastroAlimento;

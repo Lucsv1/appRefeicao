@@ -14,13 +14,14 @@ import { useState } from "react";
 import { Modal } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CadastroAlimento from "./Screens/Restaurante/CadastroAlimento";
-import RegistroRestaurante from "./Screens/Restaurante/RegistroRestaurante";
-import LoginRestaurante from "./Screens/Restaurante/LoginRestaurante";
-import Registro from "./Screens/Caridade/Registro";
-import Login from "./Screens/Caridade/Login";
-import Listagem from "./Screens/Caridade/Listagem";
+import RegistroRestaurante from "./Screens/Restaurante/RegistroRestaurante/RegistroRestaurante";
+import LoginRestaurante from "./Screens/Restaurante/LoginRestaurante/LoginRestaurante";
+import Registro from "./Screens/Caridade/Registro/Registro";
+import Login from "./Screens/Caridade/Login/Login";
+import Listagem from "./Screens/Caridade/Listagem/Listagem";
 import { Ionicons } from "@expo/vector-icons";
+import CadastroAlimento from './Screens/Restaurante/CadastroAlimento/CadastroAlimento'
+
 import CameraScreen from "./settings/CameraScreen";
 const Tab = createBottomTabNavigator();
 

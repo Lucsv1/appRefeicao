@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
+import { styleItem, styleListagem, styleRegistro } from "./style";
 import {
   StyleSheet,
   Text,
@@ -12,8 +13,25 @@ import {
 
 const Item = (props) => {
 
+  const handleGet = () =>{
+    fetch("http://localhost:8080/alimentos", {
+      method: 'GET',
+    })
+    .then((response) =>{
+      if(response.ok){
+        return response.json()
+      } else{
+        throw new Error('Nao foi possivel achar alimentos')
+      }
+    })
+    .then((data)=>{
+      console.log(data)
+      ()
+    })
+  }
+
   const handleDelete = () => {
-    fetch(`http://localhost:8080/alimentos/${props.item.id}`, {
+    fetch(`http://192.168.193.236:8080/alimentos/${props.item.id}`, {
       method: 'DELETE',
     })
       .then((response) => {
@@ -57,33 +75,6 @@ const Item = (props) => {
   );
 };
 
-const styleItem = StyleSheet.create({
-  main: {
-    backgroundColor: "#98e8b6",
-    padding: 10,
-    marginTop: 10,
-    fontWeight: "bold",
-    borderRadius: 10,
-  },
-  alimento: {
-    padding: 10,
-  },
-  items: {
-    padding: 5,
-  },
-  mainBotao:{
-    flexDirection: 'row',
-    padding: 10
-  },
-  botao: {
-    backgroundColor: "white",
-    alignSelf: "center",
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    margin: 5
-  },
-});
 
 const Listagem = (props) => {
 
@@ -109,31 +100,5 @@ const Listagem = (props) => {
     </View>
   );
 };
-
-const styleListagem = StyleSheet.create({
-  main: { justifyContent: "center", alignItems: "center" },
-});
-
-const styleRegistro = StyleSheet.create({
-  containerRegistro: { flex: 1 },
-  textoRegistro: {
-    alignItems: "center",
-    flex: 1,
-  },
-  bodyRegistro: {
-    alignItems: "center",
-    flex: 5,
-  },
-  botao: {
-    marginTop: 10,
-    backgroundColor: "#78bd92",
-    padding: 10,
-    borderRadius: 10,
-    width: "30%",
-  },
-  textBotao: {
-    textAlign: "center",
-  },
-});
 
 export default Listagem;

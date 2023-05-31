@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
+import { styleRegistro, stylesLogin } from "./style";
 import {
   StyleSheet,
   Text,
@@ -16,7 +17,7 @@ const LoginRestaurante = (props) => {
     const handleLogin = () => {
       const email = props.emailRestaurante;
       const senha = props.senhaRestaurante;
-      const url = `http://192.168.15.5:8080/restaurantes/login?email=${email}&senha=${senha}`;
+      const url = `http://192.168.193.236:8080/restaurantes/login?email=${email}&senha=${senha}`;
   
       fetch(url, {
         method: "POST",
@@ -75,55 +76,6 @@ const LoginRestaurante = (props) => {
   );
 };
 
-const styleRegistro = StyleSheet.create({
-  containerRegistro: { flex: 1 },
-  textoRegistro: {
-    alignItems: "center",
-    flex: 1,
-  },
-  bodyRegistro: {
-    alignItems: "center",
-    flex: 5,
-  },
-  botao: {
-    marginTop: 10,
-    backgroundColor: "#78bd92",
-    padding: 10,
-    borderRadius: 10,
-    width: "30%",
-  },
-  textBotao: {
-    textAlign: "center",
-  },
-});
 
-const stylesLogin = StyleSheet.create({
-  loginContainer: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  textoLogin: {
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  forms: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  inputs: {
-    backgroundColor: "white",
-    width: "50%",
-    borderRadius: 10,
-    marginTop: 10,
-  },
-  notRegister: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default LoginRestaurante;

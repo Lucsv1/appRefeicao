@@ -11,32 +11,37 @@ import {
 } from "react-native";
 
 const LoginRestaurante = (props) => {
-  const [emailLoginRestaurante, setLoginEmailRestaurante] = useState('')
-  const [senhaLoginRestaurante, setLoginSenhaRestaurante] = useState('')
-
-  const handleLogin = () => {
-    const credentials = {
-      email: emailLoginRestaurante,
-      senha: senhaLoginRestaurante,
-    };
-
-    fetch('http://192.168.193.236:8080/restaurantes/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
+  
+    
+    const handleLogin = () => {
+      const email = props.emailRestaurante;
+      const senha = props.senhaRestaurante;
+      const url = `http://192.168.15.5:8080/restaurantes/login?email=${email}&senha=${senha}`;
+  
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch(error => {
-        console.error(error);
-      });
-      props.setGoRegistroAlimento(true);
-
-  };
+        .then((response) => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error("Invalid email or password");
+          }
+        })
+        .then((data) => {
+          // Handle success response if needed
+          console.log(data);
+          // Set the state to navigate to the listagem screen
+          props.setGoRegistroAlimento(true);
+        })
+        .catch((error) => {
+          // Handle error if needed
+          console.error(error);
+        });
+    };
 
   return (
     <View style={stylesLogin.loginContainer}>
@@ -46,9 +51,9 @@ const LoginRestaurante = (props) => {
       </View>
       <View style={stylesLogin.forms}>
         <Text>EMAIL</Text>
-        <TextInput value={emailLoginRestaurante} onChangeText={setLoginEmailRestaurante} style={stylesLogin.inputs} />
+        <TextInput value={props.emailRestaurante} onChangeText={props.setEmailRestaurante} style={stylesLogin.inputs} />
         <Text>Senha</Text>
-        <TextInput value={senhaLoginRestaurante} onChangeText={setLoginSenhaRestaurante} style={stylesLogin.inputs} />
+        <TextInput value={props.senhaRestaurante} onChangeText={props.setSenhaRestaurante} style={stylesLogin.inputs} />
         <View style={styleRegistro.botao}>
           <Text
             onPress={handleLogin}

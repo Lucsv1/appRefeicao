@@ -13,8 +13,6 @@ import {
 
 const Registro = (props) => {
   const [nomeCaridade, setNomeCaridade] = useState("");
-  const [emailCaridade, setEmailCaridade] = useState("");
-  const [senhaCaridade, setSenhaCaridade] = useState("");
   const [cnpjCaridade, setCnpjCaridade] = useState("");
   const [modal, setModal] = useState(false);
   const [cepCaridade, setCepCaridade] = useState("");
@@ -42,14 +40,14 @@ const Registro = (props) => {
         <Text style={{ marginTop: 10 }}>Email</Text>
         <TextInput
           style={stylesLogin.inputs}
-          value={emailCaridade}
-          onChangeText={setEmailCaridade}
+          value={props.emailCaridade}
+          onChangeText={props.setEmailCaridade}
         />
         <Text style={{ marginTop: 10 }}>Senha</Text>
         <TextInput
           style={stylesLogin.inputs}
-          value={senhaCaridade}
-          onChangeText={setSenhaCaridade}
+          value={props.senhaCaridade}
+          onChangeText={props.setSenhaCaridade}
         />
         <Text style={{ marginTop: 10 }}>CNPJ</Text>
         <TextInput
@@ -130,10 +128,10 @@ const Registro = (props) => {
                 onPress={() => {
                   const obj = {
                     nome: nomeCaridade,
-                    email: emailCaridade,
-                    senha: senhaCaridade,
+                    email: props.emailCaridade,
+                    senha: props.senhaCaridade,
                     cnpj: cnpjCaridade,
-                    enderecoRestaurante: {
+                    endereco: {
                       cep: cepCaridade,
                       logradouro: logradouroCaridade,
                       numero: numeroCaridade,
@@ -144,7 +142,7 @@ const Registro = (props) => {
                     ativo: true,
                   };
 
-                  fetch("http://172.18.192.1:8080/usuarios", {
+                  fetch("http://192.168.15.5:8080/usuarios", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",

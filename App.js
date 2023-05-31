@@ -24,7 +24,6 @@ import { Ionicons } from "@expo/vector-icons";
 import CameraScreen from "./settings/CameraScreen";
 const Tab = createBottomTabNavigator();
 
-
 export default function App() {
   const [listaAlimentos, setListaAlimentos] = useState([]);
   const [listaLoginRestaurante, setListaLoginRestaurante] = useState([]);
@@ -39,7 +38,11 @@ export default function App() {
   const [goListagem, setGoListagem] = useState(false);
   const [goRegistroAlimento, setGoRegistroAlimento] = useState(false);
 
-  
+  const [emailCaridade, setEmailCaridade] = useState("");
+  const [senhaCaridade, setSenhaCaridade] = useState("");
+
+  const [emailRestaurante, setEmailRestaurante] = useState("");
+  const [senhaRestaurante, setSenhaRestaurante] = useState("");
 
   return (
     <NavigationContainer>
@@ -63,11 +66,19 @@ export default function App() {
                   <Login
                     setGoListagem={setGoListagem}
                     setGoRegister={setGoRegister}
+                    setEmailCaridade={setEmailCaridade}
+                    emailCaridade={emailCaridade}
+                    setSenhaCaridade={setSenhaCaridade}
+                    senhaCaridade={senhaCaridade}
                   />
                 ) : goRegister ? (
                   <Registro
                     setGoRegister={setGoRegister}
                     setListaRegistroCaridade={setListaRegistroCaridade}
+                    setEmailCaridade={setEmailCaridade}
+                    emailCaridade={emailCaridade}
+                    setSenhaCaridade={setSenhaCaridade}
+                    senhaCaridade={senhaCaridade}
                   />
                 ) : goListagem ? (
                   <Listagem
@@ -79,6 +90,10 @@ export default function App() {
                   <Login
                     setGoListagem={setGoListagem}
                     setGoRegister={setGoRegister}
+                    setEmailCaridade={setEmailCaridade}
+                    emailCaridade={emailCaridade}
+                    setSenhaCaridade={setSenhaCaridade}
+                    senhaCaridade={senhaCaridade}
                   />
                 )
               }
@@ -94,9 +109,17 @@ export default function App() {
                   <LoginRestaurante
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
                     setGoRegistroAlimento={setGoRegistroAlimento}
+                    setEmailRestaurante={setEmailRestaurante}
+                    emailRestaurante={emailRestaurante}
+                    setSenhaRestaurante={setSenhaRestaurante}
+                    senhaRestaurante={senhaRestaurante}
                   />
                 ) : goRegisterRestaurante ? (
                   <RegistroRestaurante
+                    setEmailRestaurante={setEmailRestaurante}
+                    emailRestaurante={emailRestaurante}
+                    setSenhaRestaurante={setSenhaRestaurante}
+                    senhaRestaurante={senhaRestaurante}
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
                   />
                 ) : goRegistroAlimento ? (
@@ -109,6 +132,10 @@ export default function App() {
                   <LoginRestaurante
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
                     setGoRegistroAlimento={setGoRegistroAlimento}
+                    setEmailRestaurante={setEmailRestaurante}
+                    emailRestaurante={emailRestaurante}
+                    setSenhaRestaurante={setSenhaRestaurante}
+                    senhaRestaurante={senhaRestaurante}
                   />
                 )
               }

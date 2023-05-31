@@ -15,8 +15,6 @@ import {
 const RegistroRestaurante = (props) => {
   const [modal, setModal] = useState(false);
   const [nmRestaurante, setNmRestaurante] = useState("");
-  const [emailRestaurante, setEmailRestaurante] = useState("");
-  const [senhaRestaurante, setSenhaRestaurante] = useState("");
   const [cnpjRestaurante, setCnpjRestaurante] = useState("");
   const [cepRestaurante, setCepRestaurante] = useState("");
   const [logradouroRestaurante, setLogradouroRestaurante] = useState("");
@@ -27,23 +25,31 @@ const RegistroRestaurante = (props) => {
   const onRequest = async () => {
     const obj = {
       nome: nmRestaurante,
-      email: emailRestaurante,
-      senha: senhaRestaurante,
+      email: props.emailRestaurante,
+      senha: props.senhaRestaurante,
       cnpj: cnpjRestaurante,
       endereco: {
-        cep: "123456",
+        cep: cepRestaurante,
         logradouro: logradouroRestaurante,
         numero: nmRestaurante,
         uf: ufRestaurante,
         complemento: complementoRestaurante,
       },
     };
-    try {
-      const res = await axios.post("http://192.168.15.5:8080/restaurantes",obj);
-      return res.data;
-    } catch (error) {
+    fetch("http://192.168.15.5:8080/restaurantes", {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(obj)
+    })
+    .then((response)=> response.json())
+    .then((data)=>{
+      console.log(data)
+    })
+    .catch((error)=>{
       console.log(error)
-    }
+    })
   };
 
   return (
@@ -64,14 +70,14 @@ const RegistroRestaurante = (props) => {
         />
         <Text style={{ marginTop: 10 }}>Email</Text>
         <TextInput
-          value={emailRestaurante}
-          onChangeText={setEmailRestaurante}
+          value={props.emailRestaurante}
+          onChangeText={props.setEmailRestaurante}
           style={stylesLogin.inputs}
         />
         <Text style={{ marginTop: 10 }}>Senha</Text>
         <TextInput
-          value={senhaRestaurante}
-          onChangeText={setSenhaRestaurante}
+          value={props.senhaRestaurante}
+          onChangeText={props.setSenhaRestaurante}
           style={stylesLogin.inputs}
         />
         <Text style={{ marginTop: 10 }}>CNPJ</Text>
@@ -160,7 +166,7 @@ const RegistroRestaurante = (props) => {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  props.setGoRegisterRestaurante(false);
+                  setModal(false);
                 }}
               >
                 <View style={styleRegistro.botao}>

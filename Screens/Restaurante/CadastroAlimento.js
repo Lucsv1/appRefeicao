@@ -15,21 +15,33 @@ const CadastroAlimento = (props) => {
   const [dtDoacao, setDtDoacao] = useState("");
   const [nmRestaurante, setNmRestaurante] = useState("");
   const [status, setStatus] = useState("");
+  const [listaCadastroAlimento, setListaCadastroAlimentos] = useState([])
 
   const handleCadastroAlimento = () => {
+
+    const obj1={
+      alimento,
+      dtDoacao,
+      nmRestaurante,
+      status,
+    }
+
+
+    setListaCadastroAlimentos([...listaCadastroAlimento, obj1])
+
     const obj = {
-      tags: [alimento],
+      tags: ['arroz'],
       restauranteDoadorId: 0,
     };
 
-    fetch("http://192.168.193.236:8080/alimentos", {
+    fetch("http://192.168.15.5:8080/alimentos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(obj),
     })
-      .then((response) => response.json())
+      .then((response) => response.text())
       .then((data) => {
         // Handle success response if needed
         console.log(data);
@@ -39,7 +51,6 @@ const CadastroAlimento = (props) => {
         // Handle error if needed
         console.error(error);
       });
-      props.setListaAlimentos([...props.listaAlimentos, obj]);
 
   };
 

@@ -17,6 +17,8 @@ const Login = (props) => {
     const senha = props.senhaCaridade;
     const url = `http://192.168.0.10:8080/usuarios/login?email=${email}&senha=${senha}`;
 
+    console.log(email);
+    console.log(senha);
     fetch(url, {
       method: "POST",
       headers: {
@@ -31,13 +33,10 @@ const Login = (props) => {
         }
       })
       .then((data) => {
-        // Handle success response if needed
         console.log(data);
-        // Set the state to navigate to the listagem screen
         props.setGoListagem(true);
       })
       .catch((error) => {
-        // Handle error if needed
         console.error(error);
       });
   };
@@ -50,13 +49,13 @@ const Login = (props) => {
         </Text>
       </View>
       <View style={stylesLogin.forms}>
-        <Text style={{fontSize: 18}}>Email</Text>
+        <Text style={{ fontSize: 18 }}>Email</Text>
         <TextInput
           style={stylesLogin.inputs}
           value={props.emailCaridade}
           onChangeText={props.setEmailCaridade}
         />
-        <Text style={{fontSize: 18}}>Senha</Text>
+        <Text style={{ fontSize: 18 }}>Senha</Text>
         <TextInput
           style={stylesLogin.inputs}
           value={props.senhaCaridade}
@@ -69,19 +68,19 @@ const Login = (props) => {
         </View>
       </View>
       <View style={stylesLogin.notRegister}>
-        <Text style={{textAlign: 'center'}}>Você não é registrado?</Text>
+        <Text style={{ textAlign: "center" }}>Você não é registrado?</Text>
         <TouchableOpacity
           onPress={() => {
             props.setGoRegister(true);
           }}
         >
-          <Text style={{ color: "red", fontSize: 20, textAlign: 'center' }}>Clique aqui</Text>
+          <Text style={{ color: "red", fontSize: 20, textAlign: "center" }}>
+            Clique aqui
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
-
 
 export default Login;

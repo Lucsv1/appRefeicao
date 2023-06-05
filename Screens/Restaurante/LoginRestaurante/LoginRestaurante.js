@@ -19,6 +19,7 @@ const LoginRestaurante = (props) => {
       const senha = props.senhaRestaurante;
       const url = `http://192.168.0.10:8080/restaurantes/login?email=${email}&senha=${senha}`;
   
+      
       fetch(url, {
         method: "POST",
         headers: {
@@ -33,13 +34,10 @@ const LoginRestaurante = (props) => {
           }
         })
         .then((data) => {
-          // Handle success response if needed
           console.log(data);
-          // Set the state to navigate to the listagem screen
           props.setGoRegistroAlimento(true);
         })
         .catch((error) => {
-          // Handle error if needed
           console.error(error);
         });
     };

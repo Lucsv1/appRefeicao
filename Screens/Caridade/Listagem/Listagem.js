@@ -12,8 +12,8 @@
   } from "react-native";
 
   const Item = (props) => {
+    const { alimento, dtDoacao, nmRestaurante, status } = props.item;
    
-
     const handleDelete = () => {
       fetch(`http://192.168.0.10:8080/alimentos/${props.item.id}`, {
         method: 'DELETE',
@@ -34,22 +34,19 @@
       <View style={styleItem.main}>
         <View style={styleItem.alimento}>
           <Text style={{ fontSize: 20, color: "white", textAlign: "center" }}>
-            {props.item.alimento}
+            {props.item.tags[3]}
           </Text>
         </View>
         <View style={styleItem.items}>
-          <Text>Data da doação: {props.item.dtDoacao}</Text>
+          <Text>Data da doação: {props.item.alimento}</Text>
         </View>
         <View style={styleItem.items}>
-          <Text>Nome do Restaurante: {props.item.nmRestaurante}</Text>
+          <Text>Nome do Restaurante: {props.item.tags[2]}</Text>
         </View>
         <View style={styleItem.items}>
-          <Text>Status: {props.item.status}</Text>
+          <Text>Status: {props.item.tags[1]}</Text>
         </View>
         <View style={styleItem.mainBotao}>
-          <TouchableOpacity style={styleItem.botao} >
-            <Text style={{ color: "#98e8b6" }}>Solicitar</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styleItem.botao} onPress={() => handleDelete(props.item.id)}> 
             <Text style={{color: "#ee2a1a"}}>Recusar</Text>
           </TouchableOpacity>

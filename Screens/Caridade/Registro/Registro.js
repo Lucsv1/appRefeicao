@@ -39,11 +39,9 @@ const Registro = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle success response if needed
         console.log(data);
       })
       .catch((error) => {
-        // Handle error if needed
         console.error(error);
       });
   };

@@ -18,18 +18,19 @@ const CadastroAlimento = (props) => {
   const [status, setStatus] = useState("");
 
   const handleCadastroAlimento = () => {
-    const novaTag = [
-      alimento,
-      dtDoacao,
-      nmRestaurante,
-      status
-    ];
+  //   const novaTag = 
+  //     alimento,
+  //     dtDoacao,
+  //     nmRestaurante,
+  //     status
+  // };
     const obj1 = {
-      alimento: novaTag,
+      tags: [alimento, dtDoacao, nmRestaurante, status],
       restauranteDoadorId: props.restauranteId, 
     };
     
   
+    console.log(obj1)
     fetch("http://192.168.0.10:8080/alimentos", {
       method: "POST",
       headers: {

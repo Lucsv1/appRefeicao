@@ -16,31 +16,41 @@ const CadastroAlimento = (props) => {
   const [dtDoacao, setDtDoacao] = useState("");
   const [nmRestaurante, setNmRestaurante] = useState("");
   const [status, setStatus] = useState("");
-  const [listaCadastroAlimento, setListaCadastroAlimentos] = useState([])
 
   const handleCadastroAlimento = () => {
+    const novaTag = [
+      alimento,
+      dtDoacao,
+      nmRestaurante,
+      status
+    ];
     const obj1 = {
-      alimento: [alimento],
-      restauranteDoadorId: 0,
+      alimento: novaTag,
+      restauranteDoadorId: props.restauranteId, 
     };
+    
   
-    console.log(obj1)
-    fetch("http://192.168.193.236:8080/alimentos", {
+    fetch("http://192.168.0.10:8080/alimentos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(obj1),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao cadastrar alimento");
+        }else{
+          return response.json();
+        }
+      })
       .then((data) => {
-        // Handle success response if needed
+        props.setListaAlimentosRegister(data)
         console.log(data);
-        // Add the new food to the list
       })
       .catch((error) => {
-        // Handle error if needed
         console.error(error);
+        console.log('Erro capturado');
       });
   };
   
@@ -96,7 +106,5 @@ const CadastroAlimento = (props) => {
     </View>
   );
 };
-
-
 
 export default CadastroAlimento;

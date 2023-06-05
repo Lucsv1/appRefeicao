@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { styleRegistro, stylesLogin } from "./style";
+import { stylesLogin } from "../../Style/styleLogin";
 import {
   StyleSheet,
   Text,
@@ -15,7 +15,7 @@ const Login = (props) => {
   const handleLogin = () => {
     const email = props.emailCaridade;
     const senha = props.senhaCaridade;
-    const url = `http://192.168.193.236:8080/usuarios/login?email=${email}&senha=${senha}`;
+    const url = `http://192.168.0.10:8080/usuarios/login?email=${email}&senha=${senha}`;
 
     fetch(url, {
       method: "POST",
@@ -45,37 +45,37 @@ const Login = (props) => {
   return (
     <View style={stylesLogin.loginContainer}>
       <View style={stylesLogin.textoLogin}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>
           Login - Caridade
         </Text>
       </View>
       <View style={stylesLogin.forms}>
-        <Text>Email</Text>
+        <Text style={{fontSize: 18}}>Email</Text>
         <TextInput
           style={stylesLogin.inputs}
           value={props.emailCaridade}
           onChangeText={props.setEmailCaridade}
         />
-        <Text>Senha</Text>
+        <Text style={{fontSize: 18}}>Senha</Text>
         <TextInput
           style={stylesLogin.inputs}
           value={props.senhaCaridade}
           onChangeText={props.setSenhaCaridade}
         />
-        <View style={styleRegistro.botao}>
-          <Text onPress={() => handleLogin()} style={styleRegistro.textBotao}>
+        <View style={stylesLogin.botao}>
+          <Text onPress={() => handleLogin()} style={stylesLogin.textoBotao}>
             Logar
           </Text>
         </View>
       </View>
       <View style={stylesLogin.notRegister}>
-        <Text>Você não é registrado?</Text>
+        <Text style={{textAlign: 'center'}}>Você não é registrado?</Text>
         <TouchableOpacity
           onPress={() => {
             props.setGoRegister(true);
           }}
         >
-          <Text style={{ color: "red", fontSize: 20 }}>Clique aqui</Text>
+          <Text style={{ color: "red", fontSize: 20, textAlign: 'center' }}>Clique aqui</Text>
         </TouchableOpacity>
       </View>
     </View>

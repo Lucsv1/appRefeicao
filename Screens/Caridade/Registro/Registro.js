@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { styleRegistro, stylesLogin } from "./style";
+import { styleRegistro } from "../../Style/styleRegistro";
+import { styleModal } from "../../Style/styleModal";
 import {
   StyleSheet,
   Text,
@@ -13,6 +14,40 @@ import {
 } from "react-native";
 
 const Registro = (props) => {
+  const handleRegsitro = () => {
+    const obj = {
+      nome: nomeCaridade,
+      email: props.emailCaridade,
+      senha: props.senhaCaridade,
+      cnpj: cnpjCaridade,
+      endereco: {
+        cep: cepCaridade,
+        logradouro: logradouroCaridade,
+        numero: numeroCaridade,
+        uf: ufCaridade,
+        complemento: complementoCaridade,
+      },
+      dataCadastro: new Date().toISOString(),
+      ativo: true,
+    };
+    fetch("http://192.168.0.10:8080/usuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle success response if needed
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle error if needed
+        console.error(error);
+      });
+  };
+
   const [nomeCaridade, setNomeCaridade] = useState("");
   const [cnpjCaridade, setCnpjCaridade] = useState("");
   const [modal, setModal] = useState(false);
@@ -25,34 +60,34 @@ const Registro = (props) => {
   return (
     <View style={styleRegistro.containerRegistro}>
       <View style={styleRegistro.textoRegistro}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Registro</Text>
-        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Registro</Text>
+        <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
           {" "}
           Caridade
         </Text>
       </View>
       <View style={styleRegistro.bodyRegistro}>
-        <Text>Nome</Text>
+        <Text style={{fontSize: 18}}>Nome</Text>
         <TextInput
-          style={stylesLogin.inputs}
+          style={styleRegistro.inputs}
           value={nomeCaridade}
           onChangeText={setNomeCaridade}
         />
-        <Text style={{ marginTop: 10 }}>Email</Text>
+        <Text style={{fontSize: 18}}>Email</Text>
         <TextInput
-          style={stylesLogin.inputs}
+          style={styleRegistro.inputs}
           value={props.emailCaridade}
           onChangeText={props.setEmailCaridade}
         />
-        <Text style={{ marginTop: 10 }}>Senha</Text>
+        <Text style={{fontSize: 18}}>Senha</Text>
         <TextInput
-          style={stylesLogin.inputs}
+          style={styleRegistro.inputs}
           value={props.senhaCaridade}
           onChangeText={props.setSenhaCaridade}
         />
-        <Text style={{ marginTop: 10 }}>CNPJ</Text>
+        <Text style={{fontSize: 18}}>CNPJ</Text>
         <TextInput
-          style={stylesLogin.inputs}
+          style={styleRegistro.inputs}
           value={cnpjCaridade}
           onChangeText={setCnpjCaridade}
         />
@@ -84,89 +119,52 @@ const Registro = (props) => {
           transparent={false}
           visible={modal}
         >
-          <View style={styleRegistro.containerRegistro}>
-            <View style={styleRegistro.textoRegistro}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+          <View style={styleModal.containerRegistro}>
+            <View style={styleModal.textoRegistro}>
+              <Text style={{ fontSize: 30, fontWeight: "bold" }}>
                 Registro - Endereço
               </Text>
-              <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
+              <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
                 {" "}
                 Caridade
               </Text>
             </View>
-            <View style={styleRegistro.bodyRegistro}>
-              <Text style={{ marginTop: 10 }}>CEP</Text>
+            <View style={styleModal.bodyRegistro}>
+              <Text style={{fontSize: 10}}>CEP</Text>
               <TextInput
                 value={cepCaridade}
                 onChangeText={setCepCaridade}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
-              <Text style={{ marginTop: 10 }}>logradouro</Text>
+              <Text style={{fontSize: 10}}>logradouro</Text>
               <TextInput
                 value={logradouroCaridade}
                 onChangeText={setLogradouroCaridade}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
-              <Text style={{ marginTop: 10 }}>Número</Text>
+              <Text style={{fontSize: 10}}>Número</Text>
               <TextInput
                 value={numeroCaridade}
                 onChangeText={setNumeroCaridade}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
-              <Text style={{ marginTop: 10 }}>UF</Text>
+              <Text style={{fontSize: 10}}>UF</Text>
               <TextInput
                 value={ufCaridade}
                 onChangeText={setUfCaridade}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
-              <Text style={{ marginTop: 10 }}>Complemento</Text>
+              <Text style={{fontSize: 10}}>Complemento</Text>
               <TextInput
                 value={complementoCaridade}
                 onChangeText={setComplementoCaridade}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
               <TouchableOpacity
-                onPress={() => {
-                  const obj = {
-                    nome: nomeCaridade,
-                    email: props.emailCaridade,
-                    senha: props.senhaCaridade,
-                    cnpj: cnpjCaridade,
-                    endereco: {
-                      cep: cepCaridade,
-                      logradouro: logradouroCaridade,
-                      numero: numeroCaridade,
-                      uf: ufCaridade,
-                      complemento: complementoCaridade,
-                    },
-                    dataCadastro: new Date().toISOString(),
-                    ativo: true,
-                  };
-
-                  fetch("http://192.168.193.236:8080/usuarios", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(obj),
-                  })
-                    .then((response) => response.json())
-                    .then((data) => {
-                      // Handle success response if needed
-                      console.log(data);
-                    })
-                    .catch((error) => {
-                      // Handle error if needed
-                      console.error(error);
-                    });
-                  // props.setListaRegistroCaridade([
-                  //   ...props.setListaRegistroCaridade,
-                  //   obj,
-                  // ]);
-                }}
-                style={styleRegistro.botao}
+                onPress={handleRegsitro}
+                style={styleModal.botao}
               >
-                <Text style={styleRegistro.textBotao}>Salvar</Text>
+                <Text style={styleModal.textBotao}>Salvar</Text>
               </TouchableOpacity>
             </View>
             <View>
@@ -175,8 +173,8 @@ const Registro = (props) => {
                   setModal(false);
                 }}
               >
-                <View style={styleRegistro.botao}>
-                  <Text style={styleRegistro.textBotao}>Voltar</Text>
+                <View style={styleModal.botao}>
+                  <Text style={styleModal.textBotao}>Voltar</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -186,6 +184,5 @@ const Registro = (props) => {
     </View>
   );
 };
-
 
 export default Registro;

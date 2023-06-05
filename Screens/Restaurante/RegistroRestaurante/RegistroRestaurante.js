@@ -1,7 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import axios from "axios";
-import { stylesLogin, styleRegistro } from "./style";
+import { styleRegistro } from "../../Style/styleRegistro";
+import { styleModal } from "../../Style/styleModal";
 import {
   StyleSheet,
   Text,
@@ -37,7 +38,7 @@ const RegistroRestaurante = (props) => {
         complemento: complementoRestaurante,
       },
     };
-    fetch("http://192.168.193.236:8080/restaurantes", {
+    fetch("http://192.168.0.10:8080/restaurantes", {
       method: "POST",
       headers: {
         "Content-Type" : "application/json"
@@ -46,7 +47,9 @@ const RegistroRestaurante = (props) => {
     })
     .then((response)=> response.json())
     .then((data)=>{
+      const restauranteId = data.id; 
       console.log(data)
+      props.setRestauranteId(restauranteId)
     })
     .catch((error)=>{
       console.log(error)
@@ -56,36 +59,36 @@ const RegistroRestaurante = (props) => {
   return (
     <View style={styleRegistro.containerRegistro}>
       <View style={styleRegistro.textoRegistro}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Registro</Text>
-        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Registro</Text>
+        <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
           {" "}
           Restaurante
         </Text>
       </View>
       <View style={styleRegistro.bodyRegistro}>
-        <Text>Nome do Restaurante</Text>
+        <Text style={{fontSize: 18}}>Nome do Restaurante</Text>
         <TextInput
           value={nmRestaurante}
           onChangeText={setNmRestaurante}
-          style={stylesLogin.inputs}
+          style={styleRegistro.inputs}
         />
-        <Text style={{ marginTop: 10 }}>Email</Text>
+        <Text style={{fontSize: 18}}>Email</Text>
         <TextInput
           value={props.emailRestaurante}
           onChangeText={props.setEmailRestaurante}
-          style={stylesLogin.inputs}
+          style={styleRegistro.inputs}
         />
-        <Text style={{ marginTop: 10 }}>Senha</Text>
+        <Text style={{fontSize: 18}}>Senha</Text>
         <TextInput
           value={props.senhaRestaurante}
           onChangeText={props.setSenhaRestaurante}
-          style={stylesLogin.inputs}
+          style={styleRegistro.inputs}
         />
-        <Text style={{ marginTop: 10 }}>CNPJ</Text>
+        <Text style={{fontSize: 18}}>CNPJ</Text>
         <TextInput
           value={cnpjRestaurante}
           onChangeText={setCnpjRestaurante}
-          style={stylesLogin.inputs}
+          style={styleRegistro.inputs}
         />
         <TouchableOpacity
           onPress={() => {
@@ -98,7 +101,7 @@ const RegistroRestaurante = (props) => {
           </View>
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={styleRegistro.footer}>
         <TouchableOpacity
           onPress={() => {
             props.setGoRegisterRestaurante(false);
@@ -116,8 +119,8 @@ const RegistroRestaurante = (props) => {
           animationType="fade"
           visible={modal}
         >
-          <View style={styleRegistro.containerRegistro}>
-            <View style={styleRegistro.textoRegistro}>
+          <View style={styleModal.containerRegistro}>
+            <View style={styleModal.textoRegistro}>
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                 Registro - Endereço
               </Text>
@@ -126,45 +129,43 @@ const RegistroRestaurante = (props) => {
                 Restaurante
               </Text>
             </View>
-            <View style={styleRegistro.bodyRegistro}>
+            <View style={styleModal.bodyRegistro}>
               <Text style={{ marginTop: 10 }}>CEP</Text>
               <TextInput
                 value={cepRestaurante}
                 onChangeText={setCepRestaurante}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
               <Text style={{ marginTop: 10 }}>logradouro</Text>
               <TextInput
                 value={logradouroRestaurante}
                 onChangeText={setLogradouroRestaurante}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
               <Text style={{ marginTop: 10 }}>Numero</Text>
               <TextInput
                 value={numeroRestaurante}
                 onChangeText={setNumeroRestaurente}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
               <Text style={{ marginTop: 10 }}>Uf</Text>
               <TextInput
                 value={ufRestaurante}
                 onChangeText={setUfRestaurante}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
               <Text style={{ marginTop: 10 }}>Complemento</Text>
               <TextInput
                 value={complementoRestaurante}
                 onChangeText={setComplementoRestaurante}
-                style={stylesLogin.inputEndereco}
+                style={styleModal.inputs}
               />
               <TouchableOpacity
                 onPress={onRequest}
-                style={styleRegistro.botao}
+                style={styleModal.botao}
               >
-                <Text style={styleRegistro.textBotao}>Salvar</Text>
+                <Text style={styleModal.textBotao}>Salvar</Text>
               </TouchableOpacity>
-            </View>
-            <View>
               <TouchableOpacity
                 onPress={() => {
                   setModal(false);
@@ -175,6 +176,7 @@ const RegistroRestaurante = (props) => {
                 </View>
               </TouchableOpacity>
             </View>
+            
           </View>
         </Modal>
       </View>

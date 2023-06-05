@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { styleRegistro, stylesLogin } from "./style";
+import { stylesLogin } from "../../Style/styleLogin";
 import {
   StyleSheet,
   Text,
@@ -17,7 +17,7 @@ const LoginRestaurante = (props) => {
     const handleLogin = () => {
       const email = props.emailRestaurante;
       const senha = props.senhaRestaurante;
-      const url = `http://192.168.193.236:8080/restaurantes/login?email=${email}&senha=${senha}`;
+      const url = `http://192.168.0.10:8080/restaurantes/login?email=${email}&senha=${senha}`;
   
       fetch(url, {
         method: "POST",
@@ -47,18 +47,18 @@ const LoginRestaurante = (props) => {
   return (
     <View style={stylesLogin.loginContainer}>
       <View style={stylesLogin.textoLogin}>
-        <Text style={{fontSize: 20,
+        <Text style={{fontSize: 30,
       fontWeight: 'bold'}}>Login - Restaurante</Text>
       </View>
       <View style={stylesLogin.forms}>
-        <Text>EMAIL</Text>
+        <Text style={{fontSize: 18}} >Email</Text>
         <TextInput value={props.emailRestaurante} onChangeText={props.setEmailRestaurante} style={stylesLogin.inputs} />
-        <Text>Senha</Text>
+        <Text style={{fontSize: 18}}>Senha</Text>
         <TextInput value={props.senhaRestaurante} onChangeText={props.setSenhaRestaurante} style={stylesLogin.inputs} />
-        <View style={styleRegistro.botao}>
+        <View style={stylesLogin.botao}>
           <Text
             onPress={handleLogin}
-            style={styleRegistro.textBotao}
+            style={stylesLogin.textoBotao}
           >Logar</Text>
         </View>
       </View>
@@ -69,7 +69,7 @@ const LoginRestaurante = (props) => {
             props.setGoRegisterRestaurante(true);
           }}
         >
-          <Text style={{ color: "red", fontSize: 20 }}>clique aqui</Text>
+          <Text style={{ color: "red", fontSize: 20, textAlign: 'center' }}>clique aqui</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -14,7 +14,7 @@ import { useState } from "react";
 import { Modal } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import RegistroRestaurante from "./Screens/Restaurante/RegistroRestaurante/RegistroRestaurante";
+import RegistroRestaurante   from "./Screens/Restaurante/RegistroRestaurante/RegistroRestaurante";
 import LoginRestaurante from "./Screens/Restaurante/LoginRestaurante/LoginRestaurante";
 import Registro from "./Screens/Caridade/Registro/Registro";
 import Login from "./Screens/Caridade/Login/Login";
@@ -26,7 +26,7 @@ import CameraScreen from "./settings/CameraScreen";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [listaAlimentos, setListaAlimentos] = useState([]);
+  const [listaAlimentosRegister, setListaAlimentosRegister] = useState([]);
   const [listaLoginRestaurante, setListaLoginRestaurante] = useState([]);
   const [listaRegistroRestaurante, setListaRegistroRestaurante] = useState([]);
   const [listaRegistroCaridade, setListaRegistroCaridade] = useState([]);
@@ -44,6 +44,8 @@ export default function App() {
 
   const [emailRestaurante, setEmailRestaurante] = useState("");
   const [senhaRestaurante, setSenhaRestaurante] = useState("");
+
+  const [restauranteId, setRestauranteId] = useState(0)
 
   return (
     <NavigationContainer>
@@ -84,8 +86,10 @@ export default function App() {
                 ) : goListagem ? (
                   <Listagem
                     setGoListagem={setGoListagem}
-                    listaAlimentos={listaAlimentos}
-                    setListaAlimentos={setListaAlimentos}
+                    listaAlimentosRegister={listaAlimentosRegister}
+                    setListaAlimentosRegister={setListaAlimentosRegister}
+                    setRestauranteId={setRestauranteId}
+                    restauranteId={restauranteId}
                   />
                 ) : (
                   <Login
@@ -122,12 +126,16 @@ export default function App() {
                     setSenhaRestaurante={setSenhaRestaurante}
                     senhaRestaurante={senhaRestaurante}
                     setGoRegisterRestaurante={setGoRegisterRestaurante}
+                    setRestauranteId={setRestauranteId}
+                    restauranteId={restauranteId}
                   />
                 ) : goRegistroAlimento ? (
                   <CadastroAlimento
                     setGoRegistroAlimento={setGoRegistroAlimento}
-                    setListaAlimentos={setListaAlimentos}
-                    listaAlimentos={listaAlimentos}
+                    setListaAlimentosRegister={setListaAlimentosRegister}
+                    listaAlimentosRegister={listaAlimentosRegister}
+                    setRestauranteId={setRestauranteId}
+                    restauranteId={restauranteId}
                   />
                 ) : (
                   <LoginRestaurante
@@ -150,23 +158,24 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    backgroundColor: "#67a2a9",
+    flex: 3,
   },
   barra: {
-    flex: 1,
+    flexDirection: 'row',
+    flex: 0.5,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#78bd92",
+    backgroundColor: "#6fd29e",
   },
   logo: {
-    width: 100,
-    height: 100,
+    marginRight: '10%',
+    width: 80,
+    height: 80,
     borderRadius: 10,
     marginTop: 10,
   },
   itulo: {
+
     fontSize: 30,
     marginTop: 10,
   },

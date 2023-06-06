@@ -31,7 +31,7 @@ const CadastroAlimento = (props) => {
     
   
     console.log(obj1)
-    fetch("http://192.168.0.10:8080/alimentos", {
+    fetch("http://192.168.166.236:8080/alimentos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

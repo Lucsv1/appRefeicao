@@ -17,7 +17,7 @@ const LoginRestaurante = (props) => {
     const handleLogin = () => {
       const email = props.emailRestaurante;
       const senha = props.senhaRestaurante;
-      const url = `http://192.168.0.10:8080/restaurantes/login?email=${email}&senha=${senha}`;
+      const url = `http://192.168.166.236:8080/restaurantes/login?email=${email}&senha=${senha}`;
   
       
       fetch(url, {

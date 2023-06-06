@@ -12,10 +12,9 @@
   } from "react-native";
 
   const Item = (props) => {
-    const { alimento, dtDoacao, nmRestaurante, status } = props.item;
    
     const handleDelete = () => {
-      fetch(`http://192.168.0.10:8080/alimentos/${props.item.id}`, {
+      fetch(`http://192.168.166.236:8080/alimentos/${props.item.id}`, {
         method: 'DELETE',
       })
         .then((response) => {
@@ -34,14 +33,14 @@
       <View style={styleItem.main}>
         <View style={styleItem.alimento}>
           <Text style={{ fontSize: 20, color: "white", textAlign: "center" }}>
-            {props.item.tags[3]}
+            {props.item.tags[2]}
           </Text>
         </View>
         <View style={styleItem.items}>
-          <Text>Data da doação: {props.item.alimento}</Text>
+          <Text>Data da doação: {props.item.tags[0]}</Text>
         </View>
         <View style={styleItem.items}>
-          <Text>Nome do Restaurante: {props.item.tags[2]}</Text>
+          <Text>Nome do Restaurante: {props.item.tags[3]}</Text>
         </View>
         <View style={styleItem.items}>
           <Text>Status: {props.item.tags[1]}</Text>
@@ -63,7 +62,7 @@
     }, []);
 
     const handleGet = () => {
-      fetch("http://192.168.0.10:8080/alimentos")
+      fetch("http://192.168.166.236:8080/alimentos")
         .then((response) => {
           if(response.ok) {
             return response.json();
@@ -74,10 +73,12 @@
         .then((data) => {
           console.log(data)
           setListaAlimentos(data)
+          console.log(listaAlimentos)
         })
         .catch((error) => {
           console.error(error);
         });
+      
     };
 
     const handleDeleteItem = (itemId) => {

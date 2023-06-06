@@ -30,7 +30,7 @@ const Registro = (props) => {
       dataCadastro: new Date().toISOString(),
       ativo: true,
     };
-    fetch("http://192.168.0.10:8080/usuarios", {
+    fetch("http://192.168.166.236:8080/usuarios", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

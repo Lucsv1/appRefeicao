@@ -15,7 +15,7 @@ const Login = (props) => {
   const handleLogin = () => {
     const email = props.emailCaridade;
     const senha = props.senhaCaridade;
-    const url = `http://192.168.0.10:8080/usuarios/login?email=${email}&senha=${senha}`;
+    const url = `http://192.168.166.236:8080/usuarios/login?email=${email}&senha=${senha}`;
 
     console.log(email);
     console.log(senha);

@@ -38,7 +38,7 @@ const RegistroRestaurante = (props) => {
         complemento: complementoRestaurante,
       },
     };
-    fetch("http://192.168.0.10:8080/restaurantes", {
+    fetch("http://192.168.166.236:8080/restaurantes", {
       method: "POST",
       headers: {
         "Content-Type" : "application/json"
